@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock paper scissors</title>
+    <style>
+      a{
+        color: chocolate;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 250px;
+      }
+      h1{
+        color: green;
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        font-size: bold;
+
+      }
+      #rock{
+        color: red;
+        border: 3px solid black;
+        position: absolute;
+        left: 100px;
+        font-size: 20px;
+
+      }
+      #paper{
+        color: red;
+        border: 3px solid black;
+        position: absolute;
+        left: 200px;
+        font-size: 20px;
+      }
+      #scissors{
+        color: red;
+        border: 3px solid black;
+        position: absolute;
+        left: 300px;
+        font-size: 20px;
+      }
+      body{
+        background-color: black;
+      }
+      #reset{
+        color: red;
+        border: 3px solid white;
+        position: absolute;
+        left: 175px;
+        top: 250px;
+        font-size: 20px;
+
+      }
+      p{
+        font-size: 20px;
+        position: absolute;
+        left: 150px;
+        top: 200px;
+
+
+      }
+      .js-result{
+        font-size: 25px;
+        position: absolute;
+        left: 35px;
+        top: 110px;
+        color: red;
+      }
+      .js-moves{
+        font-size: 25px;
+        position: absolute;
+        left: 175px;
+        top: 110px;
+        color: yellow;
+      }
+    
+    </style>
+</head>
+<body>
+    <p><h1>Rock Paper Scissors</h1></p>
+    <button id="rock" onclick="
+      playgame('rock');
+
+        ">Rock</button>
+    <button id="paper" onclick="
+     playgame('paper');
+            
+    ">Paper</button>
+    <button id="scissors" onclick="
+      playgame('scissors');
+ 
+    ">Scissors</button>
+    <p class="js-result"></p>
+    <p class="js-moves"></p>
+
+    <p class="js-score"></p>
+    <button id="reset" onclick="
+      score.wins=0;
+      score.losses=0;
+      score.ties=0;
+      updateScoreElement();
+      ">Reset score</button>
+    <br>
+    <div><h1><a href="final1.html"> Home</h1></div>
+
+
+    <script>
+
+      // function show_move (){
+      //   (`You picked ${playermove}. comuter picked ${computerMove}. ${result}
+      //     //  wins: ${score.wins}, losses: ${score.losses}, ties: ${score.ties}`);
+
+      // }
+
+
+     
+
+      const score ={
+        wins: 0,
+        losses: 0,
+        ties: 0
+      };
+
+      updateScoreElement();
+
+
+      console.log(JSON.parse(localStorage.getItem('score')));
+
+      if (!score){
+        score={
+          wins: 0,
+          losses: 0,
+          ties: 0
+        };
+      }
+
+
+      function playgame(playermove) {
+        const computerMove=pickComputermove();
+        
+       
+
+
+       let result ='';
+
+    if (playermove==='rock'){
+       if (computerMove==='Rock'){
+         result ='Tie.';
+       } else if(computerMove==='Paper'){
+         result='you lose.';
+       } else if (computerMove==='Scissors'){
+         result='you win.';
+       }
+    };
+
+ 
+
+    if (playermove==='scissors'){
+       if (computerMove==='Rock'){
+         result ='you lose.';
+       } else if(computerMove==='Paper'){
+         result='you win.';
+       } else if (computerMove==='Scissors'){
+         result='Tie.';
+       }
+    };
+    
+    if (playermove==='paper'){
+       if (computerMove==='Rock'){
+         result ='you win.';
+       } else if(computerMove==='Paper'){
+         result='Tie.';
+       } else if (computerMove==='Scissors'){
+         result='you lose.';
+       }
+    }; 
+
+   
+
+    if (result==='you win.') {
+      score.wins +=1;
+    } else if (result==='you lose.'){
+      score.losses +=1;
+    } else if (result==='Tie.'){
+      score.ties +=1;
+    }
+
+          localStorage.setItem('score',JSON.stringify(score));
+
+          updateScoreElement();
+
+           document.querySelector('.js-result').innerHTML=result;
+
+           document.querySelector('.js-moves').innerHTML=`you ${playermove} - ${computerMove} computer`
+
+
+
+          
+            
+          //  alert(`You picked ${playermove}. comuter picked ${computerMove}. ${result}
+          //  wins: ${score.wins}, losses: ${score.losses}, ties: ${score.ties}`);
+      }
+
+      function updateScoreElement(){
+        document.querySelector('.js-score').innerHTML=` wins: ${score.wins}, losses: ${score.losses}, ties: ${score.ties}`
+
+      }
+
+
+      function pickComputermove(){
+
+              const randomNumber = Math.random();
+
+            let computerMove ='';
+
+
+      
+
+      if(randomNumber>=0 && randomNumber<1/3){
+      computerMove='Rock';
+      } else if (randomNumber>=1/3 && randomNumber<2/3){
+      computerMove='Paper';
+      } else if (randomNumber>= 2/3 && randomNumber<1){
+      computerMove='Scissors';
+      }
+
+      return computerMove;
+
+
+      }
+
+      
+
+    </script>
+</body>
+</html>
